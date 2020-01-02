@@ -13,8 +13,6 @@
         9. https://leetcode.com/discuss/career/449744/google-interview-tips-faqs-answered-resources
         10. Binary tree problems done iteratively
             https://medium.com/leetcode-patterns/leetcode-pattern-0-iterative-traversals-on-trees-d373568eb0ec
-        11. Specific bloomberg questions:
-            https://www.leetfree.com/company/bloomberg.html
         12. Important Question:
             a. https://leetcode.com/problems/insert-delete-getrandom-o1/
             b. kill process

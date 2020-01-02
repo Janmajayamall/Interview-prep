@@ -1,78 +1,59 @@
-class Solution(object):    #failing few test cases
-    def minWindow(self, s, t):
-        """
-        :type s: str
-        :type t: str
-        :rtype: str
-        """
+class Solution:
+    def minWindow(self, s: str, t: str) -> str:
         
-        def compare(ch, cu):
-            
-            for i in ch.keys():
-                if i not in cu:
+        def compare_set(map1, map2):
+            for key in map1.keys():
+                if key in map2 and map1[key]<=map2[key]:
+                    pass
+                else:
                     return False
-                if ch[i]>cu[i]:
-                    return False
-            
             return True
         
+        def decrease_freq_map(map1, char):
+            if char in map1:
+                map1[char]-=1
+                if map1[char]==0:
+                    del[map1[char]]
         
-        start = 0 
-        end =0 
-        
-        checkSet={}
-        for i in t:
-            if i in checkSet:
-                checkSet[i]+=1
+        def increase_freq_map(map1, char):
+            if char in map1:
+                map1[char]+=1
             else:
-                checkSet[i]=1
+                map1[char]=1
         
-        smallest=''
-        
-        currSet={}
-        curr = ''
-        
-        while(start<len(s) and end<len(s)):    
+        def find_min_window(s, t):
+            start=0
+            end=0
+            curr={}
+            sub={}
+            curr_str=""
+            min_str=""
+            for i in t:
+                increase_freq_map(sub, i)
+
             
-            if compare(checkSet, currSet):
-                print(currSet, curr)
-                if smallest == '' or len(smallest)>len(curr):
-                    smallest=curr
+            while(end<=len(s)):
                 
-                curr=curr[1:]
-                
-                if s[start] in currSet:
-                    currSet[s[start]]=currSet[s[start]]-1
-                    if currSet[s[start]] == 0:
-                        del currSet[s[start]]
-                start+=1
-                continue
-                
-            else:
-                
-                curr+=s[end]
-                if s[end] in checkSet:
-                    if s[end] in currSet:
-                        currSet[s[end]]=currSet[s[end]]+1
-                    else:
-                        currSet[s[end]]=1
-                end+=1
-        
-        if start<len(s) and compare(checkSet, currSet):
+                if not compare_set(sub, curr) and end<len(s):
+                    increase_freq_map(curr, s[end])
+                    curr_str+=s[end]
+                    end+=1
+                elif compare_set(sub, curr):
+                    if min_str=="" or len(curr_str)<len(min_str):
+                        min_str=curr_str
+                    decrease_freq_map(curr, s[start])
+                    curr_str=curr_str[1:]
+                    start+=1
+                else:
+                    end+=1
             
-            while currSet.keys()==checkSet.keys() and start<len(s):
-                
-                if smallest == '' or len(smallest)>len(curr):
-                    smallest=curr
-                
-                curr=curr[1:]
-                
-                if s[start] in currSet:
-                    currSet[s[start]]=currSet[s[start]]-1
-                    if currSet[s[start]] == 0:
-                        del currSet[s[start]]
-                start+=1
-                
-        return smallest
+            return min_str
+    
+        return find_min_window(s,t)
+                    
             
+
+                
+                
+                
             
